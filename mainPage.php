@@ -1,7 +1,7 @@
 <!DOCTYPE html >
 <html>
 <head>
-    <title>MASH was some show</title>
+    <title>Main Page</title>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body id="body_bg">

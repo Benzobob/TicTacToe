@@ -31,7 +31,7 @@
 </div>
 
 <div align="center">
-    <p>Already have an account? <a href="login.php">Login</a>.</p>
+    <p>Already have an account? <a href="login.php">Login Here</a>.</p>
 </div>
 </body>
 </html>
