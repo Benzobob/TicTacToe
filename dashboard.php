@@ -23,21 +23,20 @@ $results = explode("\n", $result->return);
 </div>
 <div align="center">
     <h3>Table of available games</h3>
-    <table style="width:15%">
-        <table>
-            <tr>
-                <th>Game id</th>
-                <th>Opponent</th>
-                <th>Join Game</th>
-            </tr>
-            <?php
+    <table style="width:25%">
+        <tr>
+            <th>Game id</th>
+            <th>Opponent</th>
+            <th>Join Game</th>
+        </tr>
 
+            <?php
             foreach ($results as $singleOpenGame) {
                 $doubleExplosionMayham = explode(",", $singleOpenGame);
-                echo"<tr><td>" . $doubleExplosionMayham[0] . "</td><td>" . $doubleExplosionMayham[1] . "</td><td ><a href='joinedGame.php'><div style='height:100%;width100%'>JOIN GAME</div></a></td></tr>";
+                echo "<tr><td>" . $doubleExplosionMayham[0] . "</td><td>" . $doubleExplosionMayham[1] . "</td><td><form method='post' action='gameboard.php'><input type='hidden' name='gameid' value='" . $doubleExplosionMayham[0] . "'><input type='submit'value='JOIN'></form>";
             }
             ?>
-        </table>
+
     </table>
 </div>
 </body>
