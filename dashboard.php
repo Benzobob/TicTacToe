@@ -29,12 +29,14 @@ $results = explode("\n", $result->return);
             <th>Opponent</th>
             <th>Join Game</th>
         </tr>
-        <?php
-        foreach ($results as $singleOpenGame) {
-            $doubleExplosionMayham = explode(",", $singleOpenGame);
-            echo"<tr><td>" . $doubleExplosionMayham[0] . "</td><td>" . $doubleExplosionMayham[1] . "</td><td ><a href='joinedGame.php'><div style='height:100%;width100%'>JOIN GAME</div></a></td></tr>";
-        }
-        ?>
+
+            <?php
+            foreach ($results as $singleOpenGame) {
+                $doubleExplosionMayham = explode(",", $singleOpenGame);
+                echo "<tr><td>" . $doubleExplosionMayham[0] . "</td><td>" . $doubleExplosionMayham[1] . "</td><td><form method='post' action='gameboard.php'><input type='hidden' name='gameid' value='" . $doubleExplosionMayham[0] . "'><input type='submit'value='JOIN'></form>";
+            }
+            ?>
+
     </table>
 </div>
 </body>
