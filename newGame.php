@@ -19,7 +19,8 @@ switch ($result->return) {
         break;
     default:
         echo "<div class='alert alert-info'>";
-        echo 'Successfully created game<meta http-equiv="refresh" content="2; url=dashboard.php?id=' . $_SESSION['id'] . '">';
+        echo 'Successfully created game';
         echo "</div>";
+        header('Location: gameboard.php');
 }
 ?>

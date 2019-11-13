@@ -1,10 +1,20 @@
-<?php session_start();
-
-////needed to populate table of open games. Will likely need to be moved into thread.
-//include_once 'WebServiceClient.php';
-//$result = $client->showOpenGames();
-//$results = explode("\n", $result->return);
-////
+<?php
+session_start();
+include_once 'WebServiceClient.php';
+if (!empty($_POST["gameid"])) {
+    $gameid = (int)$_POST["gameid"];
+    $result = $client->joinGame(array("uid" => $_SESSION['id'], "gid" => $gameid));
+    switch ($result->return) {
+        case "ERROR-DB":
+            echo "There has been an error: ERROR-DB";
+            break;
+        case "1":
+            echo "Joined";
+            break;
+        default:
+            echo "Unable to join";
+    }
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -13,9 +23,7 @@
     <link rel="stylesheet" type="text/css" href="tableStyle.css">
 </head>
 <body>
-<?php
-echo $_POST["gameid"];
-?>
+
 
 </body>
 </html>
