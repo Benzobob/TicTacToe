@@ -22,8 +22,9 @@ else if($result->return == -1){
 }
 else if($result->return > 0){
     $_SESSION['id'] = $result->return;
+    $_SESSION['uname'] = $username;
     echo "<div class='alert alert-info'>";
-    echo 'Successfully logged in. <meta http-equiv="refresh" content="2; url=dashboard.php?id=' . $_SESSION['id'] . '">';
+    echo 'Successfully logged in. <meta http-equiv="refresh" content="2; url=dashboard.php?id=' . $_SESSION['id'] . '&uname=' . $_SESSION['uname'] . '">';
     echo "</div>";
 }
 ?>

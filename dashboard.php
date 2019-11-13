@@ -9,7 +9,7 @@
 <div align="center">
     <h1>Dashboard</h1>
     <?php
-        echo "<button><a href='scores.php?id=" . $_SESSION['id'] . "'> Scores</a></button><td>";
+        echo "<button><a href='scores.php?id=" . $_SESSION['id'] . '&uname=' . $_SESSION['uname'] . "'> Scores</a></button><td>";
         echo "<button><a href='board.php'> Leader Board</a></button>";
         echo "<button><a href='game.php'> New Game</a></button>";
     ?>
