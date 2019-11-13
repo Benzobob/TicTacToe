@@ -11,12 +11,20 @@
     <form id="reg-form" method="post" action="registerUser.php" >
         <table border="0.8" >
             <tr>
-                <td><label for="uname"><b>Email</b></label></td>
-                <td><input type="text" placeholder="Username" name="uname" required></td>
+                <td><label for="name"><b>First name</b></label></td>
+                <td><input type="text" placeholder="Name" name="name" required></td>
             </tr>
             <tr>
-                <td><label for="psw"><b>Password</b></label></td>
-                <td><input type="password" placeholder="Password" name="psw" required></td>
+                <td><label for="surname"><b>Surname</b></label></td>
+                <td><input type="text" placeholder="Surname" name="surname" required></td>
+            </tr>
+            <tr>
+                <td><label for="username"><b>Username</b></label></td>
+                <td><input type="text" placeholder="username" name="username" required></td>
+            </tr>
+            <tr>
+                <td><label for="password"><b>Password</b></label></td>
+                <td><input type="password" placeholder="Password" name="password" required></td>
             </tr>
             <tr>
                 <td><label for="psw1"><b>Re-type Password</b></label></td>
