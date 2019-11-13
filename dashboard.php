@@ -1,4 +1,11 @@
-<?php session_start(); ?>
+<?php session_start();
+
+//needed to populate table of open games. Will likely need to be moved into thread.
+include_once 'WebServiceClient.php';
+$result = $client->showOpenGames();
+$results = explode("\n", $result->return);
+//
+?>
 <!DOCTYPE html >
 <html>
 <head>
@@ -17,12 +24,20 @@
 <div align="center">
     <h3>Table of available games</h3>
     <table style="width:15%">
-        <tr>
-            <td>Game 1</td>
-        </tr>
-        <tr>
-            <td>Game 2</td>
-        </tr>
+        <table>
+            <tr>
+                <th>Game id</th>
+                <th>Opponent</th>
+            </tr>
+            <?php
+
+
+            foreach ($results as $singleOpenGame) {
+                $doubleExplosionMayham = explode(",", $singleOpenGame);
+                echo"<tr><td>" . $doubleExplosionMayham[0] . "</td><td>" . $doubleExplosionMayham[1] . "</td></tr>";
+            }
+            ?>
+        </table>
     </table>
 </div>
 </body>
