@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html >
 <html>
 <head>
@@ -7,9 +8,11 @@
 <body>
 <div align="center">
     <h1>Dashboard</h1>
-        <button><a href="scores.php"> Scores</a></button><td>
-        <button><a href="board.php"> Leader Board</a></button>
-        <button><a href="game.php"> New Game</a></button>
+    <?php
+        echo "<button><a href='scores.php?id=" . $_SESSION['id'] . "'> Scores</a></button><td>";
+        echo "<button><a href='board.php'> Leader Board</a></button>";
+        echo "<button><a href='game.php'> New Game</a></button>";
+    ?>
 </div>
 <div align="center">
     <h3>Table of available games</h3>
