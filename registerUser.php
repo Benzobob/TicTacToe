@@ -18,6 +18,10 @@ switch ($result->return){
         echo "There has been an error: ERROR-DB";
         break;
     default:
-        echo "id is " . $result->return;
+        //echo "id is " . $result->return;
+        echo "<div class='alert alert-info'>";
+        echo 'Successfully registered';
+        echo "</div>";
+        header('Location: login.php');
 }
 ?>
