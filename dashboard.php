@@ -6,7 +6,7 @@ $result = $client->showOpenGames();
 $results = explode("\n", $result->return);
 //
 ?>
-<!DOCTYPE html >
+<!DOCTYPE html>
 <html>
 <head>
     <title>Dashboard</title>
@@ -28,13 +28,13 @@ $results = explode("\n", $result->return);
             <tr>
                 <th>Game id</th>
                 <th>Opponent</th>
+                <th>Join Game</th>
             </tr>
             <?php
 
-
             foreach ($results as $singleOpenGame) {
                 $doubleExplosionMayham = explode(",", $singleOpenGame);
-                echo"<tr><td>" . $doubleExplosionMayham[0] . "</td><td>" . $doubleExplosionMayham[1] . "</td></tr>";
+                echo"<tr><td>" . $doubleExplosionMayham[0] . "</td><td>" . $doubleExplosionMayham[1] . "</td><td ><a href='joinedGame.php'><div style='height:100%;width100%'>JOIN GAME</div></a></td></tr>";
             }
             ?>
         </table>
