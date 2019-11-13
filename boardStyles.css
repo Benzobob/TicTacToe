@@ -1,0 +1,13 @@
+td {
+    width: 180px;
+    height: 180px;
+}
+
+.v {
+    border-left: 4px solid darkslategray;
+    border-right: 4px solid darkslategray;
+}
+.h {
+    border-top: 4px solid palevioletred;
+    border-bottom: 4px solid palevioletred;
+}
