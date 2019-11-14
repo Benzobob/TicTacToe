@@ -44,7 +44,8 @@ if (!empty($_POST["gameid"])) {
 </div>
 
 <?php
-$result = $client->getBoard(array("uid" => $_SESSION['id']));
+$result = $client->getBoard(array("gid" => ));
+print_r($result->return);
 ?>
 
 <script>
