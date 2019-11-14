@@ -10,7 +10,7 @@ $results = explode("\n", $result->return);
 <html>
 <head>
     <title>Dashboard</title>
-    <link rel="stylesheet" type="text/css" href="tableStyle.css">
+    <link rel="stylesheet" type="text/css" href="styles/tableStyle.css">
 </head>
 <body>
 <div align="center">

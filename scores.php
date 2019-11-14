@@ -32,7 +32,7 @@ foreach ($array1 as $value) {
 <html>
 <head>
     <title>Scores</title>
-    <link rel="stylesheet" type="text/css" href="tableStyle.css">
+    <link rel="stylesheet" type="text/css" href="styles/tableStyle.css">
 </head>
 <body>
 <div align="center">
