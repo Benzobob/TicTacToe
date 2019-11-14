@@ -18,7 +18,7 @@ $results = explode("\n", $result->return);
     <?php
         echo "<button><a href='scores.php?id=" . $_SESSION['id'] . '&uname=' . $_SESSION['uname'] . "'> Scores</a></button><td>";
         echo "<button><a href='leaderboard.php?id=" . $_SESSION['id'] . '&uname=' . $_SESSION['uname'] . "'> Leader Board</a></button>";
-        echo "<button><a href='newGame.php'> New Game</a></button>";
+        echo "<button><a href='gameboard.php'> New Game</a></button>";
     ?>
 </div>
 <div align="center">
