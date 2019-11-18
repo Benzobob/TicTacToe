@@ -1,4 +1,4 @@
-<?php session_start();.
+<?php session_start();
 //needed to populate table of open games. Will likely need to be moved into thread.
 include_once 'WebServiceClient.php';
 ?>
