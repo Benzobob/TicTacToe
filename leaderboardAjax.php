@@ -10,6 +10,7 @@ $userArray = array();
 $array1 = explode("\n", $result->return);
 
 foreach ($array1 as $value) {
+
     $array2 = explode("," , $value);
 
     array_push($userArray, $array2[1], $array2[2]); //Put every username into the array
@@ -19,19 +20,22 @@ foreach ($array1 as $value) {
 //Create a multidimensional array to hold each username and their corresponding win, draw and lose count.
 $users = array();
 foreach ($userArray as $name){
+    //echo $name . "\n";
     array_push($users, array($name, 0, 0, 0));
 }
 
 //Users now holds each unique username and the relative statistics for that user.
 foreach ($array1 as $value){
     $array2 = explode("," , $value);
-
+   // echo $value;
     //Deal with games that had a draw.
     if((int)$array2[3] === 3) {
         //find both array2[1] and array2[2] in $users and add 1 to draw for both
-
+        echo $array2[2]. " ";
+        echo $array2[1] . " ";
+        echo $array2[3];
         //for loop to go through $users
-        for ($row = 0; $row < count($users[0]); $row++) {
+        for ($row = 0; $row < count($users[0])+1; $row++) {
             if ($array2[1] === $users[$row][0]) {
                 $users[$row][3]++;  //Add 1 to draw for $array2[1]
             }
@@ -49,7 +53,7 @@ foreach ($array1 as $value){
         //Add 1 to Win for array2[2]  (p2)
 
         //for loop to go through $users
-        for ($row = 0; $row < count($users[0]); $row++) {
+        for ($row = 0; $row < count($users[0])+1; $row++) {
             if ($array2[1] === $users[$row][0]) {
                 $users[$row][2]++;  //Add 1 to lose for $array2[1]
             }
@@ -67,7 +71,7 @@ foreach ($array1 as $value){
         //Add 1 to Lose for array2[2]  (p2)
 
         //for loop to go through $users
-        for ($row = 0; $row < count($users[0]); $row++) {
+        for ($row = 0; $row < count($users[0])+1; $row++) {
             if ($array2[1] === $users[$row][0]) {
                 $users[$row][1]++;  //Add 1 to win for $array2[1]
             }
@@ -90,7 +94,7 @@ echo <<<'EOD'
         </tr>
       
 EOD;
-for ($row = 0; $row < 4; $row++) {
+for ($row = 0; $row < sizeof($array2); $row++) {
     echo "<tr>";
     for ($col = 0; $col < 4; $col++) {
         echo "<td>" . $users[$row][$col] . "</td>";

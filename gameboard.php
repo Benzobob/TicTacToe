@@ -87,7 +87,7 @@ if (!empty($_POST["gameid"])) {
 
         /* This function checks if it is the first turn or if it is the logged in users go.
          * Flag is set to true if it is your turn. */
-        $.ajax({url: "checkTurn.php?gid=" + gid, success: function(result) {
+        $.ajax({url: "getBoard.php?gid=" + gid, success: function(result) {
             if(result==="ERROR-NOMOVES")flag = true;
             else if (result==="ERROR-DB")flag = false;
             else{
