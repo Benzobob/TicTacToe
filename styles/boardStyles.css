@@ -11,3 +11,9 @@ td {
     border-top: 4px solid palevioletred;
     border-bottom: 4px solid palevioletred;
 }
+
+.myclass{
+    display:inline-block;
+    width: 80px;
+    height: 40px;
+}

@@ -48,11 +48,11 @@ if (!empty($_POST["gameid"])) {
 </head>
 <body>
 <div align="center">
-    <table id="results">
+    <table id="grid">
         <tr>
-            <td id="2-0"></td>
-            <td id="2-1" class="v"></td>
-            <td id="2-2"></td>
+            <td id="0-0"></td>
+            <td id="0-1" class="v"></td>
+            <td id="0-2"></td>
         </tr>
         <tr>
             <td id="1-0" class="h"></td>
@@ -60,33 +60,46 @@ if (!empty($_POST["gameid"])) {
             <td id="1-2" class="h"></td>
         </tr>
         <tr>
-            <td id="0-0"></td>
-            <td id="0-1" class="v"></td>
-            <td id="0-2"></td>
+            <td id="2-0"></td>
+            <td id="2-1" class="v"></td>
+            <td id="2-2"></td>
         </tr>
     </table>
 </div>
 
 <?php
-$result = $client->getBoard(array("gid" => ));
+$result = $client->getBoard(array("gid" => $gameid));
 print_r($result->return);
+
 ?>
 
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script>
-    document.getElementById("0-0").onclick = function() {myFunction("0-0")};
-    document.getElementById("0-1").onclick = function() {myFunction("0-1")};
-    document.getElementById("0-2").onclick = function() {myFunction("0-2")};
-    document.getElementById("1-0").onclick = function() {myFunction("1-0")};
-    document.getElementById("1-1").onclick = function() {myFunction("1-1")};
-    document.getElementById("1-2").onclick = function() {myFunction("1-2")};
-    document.getElementById("2-0").onclick = function() {myFunction("2-0")};
-    document.getElementById("2-1").onclick = function() {myFunction("2-1")};
-    document.getElementById("2-2").onclick = function() {myFunction("2-2")};
+    var num = 0;
+    var x = 0;
+    var y = 0;
+    var gid = <?php echo $gameid?>;
 
-    function myFunction(pos) {
-        document.getElementById(pos).innerHTML = pos;
-    }
+
+
+    $('#grid td').click(function() {
+        y = this.cellIndex;
+        x = this.parentNode.rowIndex;
+        //if(y == 0) y = y + 2;
+        //if(y == 2)  y = y - 2;
+        $.ajax({url: "checkSquare.php?gid=" + gid + "&x=" + x + "&y=" + y, success: function(result) {
+                var word = result;
+                document.getElementById("" + x + "-" + y).innerHTML = word;
+            }});
+    });
 </script>
 
 </body>
 </html>
+<?php
+function checkSqr($x, $y) {
+echo "Hello world!";
+}
+?>
