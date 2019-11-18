@@ -81,17 +81,24 @@ print_r($result->return);
     var x = 0;
     var y = 0;
     var gid = <?php echo $gameid?>;
-
+    var uid = <?php echo $_SESSION['id']?>;
 
 
     $('#grid td').click(function() {
         y = this.cellIndex;
         x = this.parentNode.rowIndex;
-        //if(y == 0) y = y + 2;
-        //if(y == 2)  y = y - 2;
+
         $.ajax({url: "checkSquare.php?gid=" + gid + "&x=" + x + "&y=" + y, success: function(result) {
-                var word = result;
-                document.getElementById("" + x + "-" + y).innerHTML = word;
+                if(parseInt(result) === 0) {
+                    $.ajax({
+                        url: "takeSquare.php?pid=" + uid + "&gid=" + gid + "&x=" + x + "&y=" + y,
+                        success: function (result) {
+                            var word = result;
+                            document.getElementById("" + x + "-" + y).innerHTML = word;
+                        }
+                    });
+                }
+
             }});
     });
 </script>
