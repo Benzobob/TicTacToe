@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once 'WebServiceClient.php';
 
 //Store result of showOpenGames in result
