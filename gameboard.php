@@ -2,7 +2,7 @@
 session_start();
 include_once 'WebServiceClient.php';
 
-if (!empty($_POST["gameid"])) {
+if (!empty($_POST["gameid"]) && !isset($_SESSION['gameid'])) {
     $gameid = (int)$_POST["gameid"];
     $_SESSION['gameid'] = $gameid;
     $result = $client->joinGame(array("uid" => $_SESSION['id'], "gid" => $gameid));
@@ -53,11 +53,6 @@ else
     <title>board</title>
     <link rel="stylesheet" type="text/css" href="styles/boardStyles.css">
 </head>
-<script>
-    window.onbeforeunload = function(e) {
-        return 'DONT DO IT';
-    };
-</script>
 <body>
 <div align="center" id="dynamic_grid">
 
@@ -85,13 +80,6 @@ else
                         $('#dynamic_grid').html(liveData);
                     }}})
         },250);
-
-
-
-
-
-
-
 
     var num = 0;
     var x = 0;
