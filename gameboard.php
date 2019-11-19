@@ -59,30 +59,39 @@ else
     };
 </script>
 <body>
-<div align="center">
-    <table id="grid">
-        <tr>
-            <td id="0-0"></td>
-            <td id="0-1" class="v"></td>
-            <td id="0-2"></td>
-        </tr>
-        <tr>
-            <td id="1-0" class="h"></td>
-            <td id="1-1" class="h v"></td>
-            <td id="1-2" class="h"></td>
-        </tr>
-        <tr>
-            <td id="2-0"></td>
-            <td id="2-1" class="v"></td>
-            <td id="2-2"></td>
-        </tr>
-    </table>
+<div align="center" id="dynamic_grid">
+
 </div>
 
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
 <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script>
+
+
+    var cacheData;
+    var liveData = $('#dynamic_grid').html();
+    var auto_refresh = setInterval(
+        function()
+        {
+            $.ajax({
+                url: 'boardUpdates.php',
+                type: 'POST',
+                dataType: 'html',
+                success: function(liveData){
+                    if(liveData !== cacheData) {
+                        cacheData = liveData;
+                        liveData: liveData;
+                        $('#dynamic_grid').html(liveData);
+                    }}})
+        },250);
+
+
+
+
+
+
+
 
     var num = 0;
     var x = 0;
@@ -99,7 +108,7 @@ else
 
         /* This function checks if it is the first turn or if it is the logged in users go.
          * Flag is set to true if it is your turn. */
-        $.ajax({url: "checkTurn.php?gid=" + gid, success: function(result) {
+        $.ajax({url: "getBoard.php?gid=" + gid, success: function(result) {
             if(result==="ERROR-NOMOVES")flag = true;
             else if (result==="ERROR-DB")flag = false;
             else{
@@ -117,10 +126,10 @@ else
                         url: "takeSquare.php?pid=" + uid + "&gid=" + gid + "&x=" + x + "&y=" + y,
                         success: function (result) {
                             if (parseInt(result) === 1) {
-                                var img = document.createElement("img");
-                                img.src = "imgs/x.png";
-                                var src = document.getElementById("" + x + "-" + y);
-                                src.appendChild(img);
+                               // var img = document.createElement("img");
+                                //img.src = "imgs/x.png";
+                                //var src = document.getElementById("" + x + "-" + y);
+                                //src.appendChild(img);
                                 }
                             else if (parseInt(result) === 0) window.alert("Error");
                             else window.alert(result);
@@ -133,7 +142,6 @@ else
             }
         }});
     });
-
 </script>
 </body>
 </html>
