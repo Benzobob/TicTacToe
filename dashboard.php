@@ -2,6 +2,7 @@
 //needed to populate table of open games. Will likely need to be moved into thread.
 include_once 'WebServiceClient.php';
 unset($_SESSION['gameid']);
+unset($_SESSION['moves']);
 ?>
 <!DOCTYPE html>
 <html>
