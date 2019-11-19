@@ -1,6 +1,6 @@
-
-
-
+<?php
+session_start();
+?>
 <!DOCTYPE html >
 <html>
 <head>
@@ -8,7 +8,6 @@
     <link rel="stylesheet" type="text/css" href="styles/tableStyle.css">
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script>
-
         //setInterval is a JavaScript method that calls a function or evaluates an expression at specified intervals.
         //We use an anonymous function to define the function called which will check if WebService::showOpenGames has new data.
         var cacheData;
@@ -17,7 +16,7 @@
             function()
             {
                 $.ajax({
-                    url: 'leaderboardAjax.php',
+                    url: 'updateLeaderboard.php',
                     type: 'POST',
                     dataType: 'html',
                     success: function(liveData){

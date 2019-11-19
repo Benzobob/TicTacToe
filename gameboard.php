@@ -4,6 +4,7 @@ include_once 'WebServiceClient.php';
 
 if (!empty($_POST["gameid"])) {
     $gameid = (int)$_POST["gameid"];
+    $_SESSION['gameid'] = $gameid;
     $result = $client->joinGame(array("uid" => $_SESSION['id'], "gid" => $gameid));
     switch ($result->return) {
         case "ERROR-DB":
@@ -15,7 +16,7 @@ if (!empty($_POST["gameid"])) {
         default:
             echo "Unable to join";
     }
-} else {
+} else if(!(isset($_SESSION['gameid']))) {
     $result = $client->newGame(array("uid" => $_SESSION['id']));
     $gameid = $result->return;
     switch ($gameid) {
@@ -37,8 +38,14 @@ if (!empty($_POST["gameid"])) {
 
             echo "<br> gameid from newGame is: $gameid";
             echo "</div>";
+            $_SESSION['gameid'] = $gameid;
     }
 }
+echo "<br>";
+if(isset($_SESSION['gameid']))
+    echo "gameid(sesh): " . $_SESSION['gameid'];
+else
+    echo "gameid(reg): " . $gameid;
 ?>
 <!DOCTYPE html>
 <html>
@@ -46,6 +53,11 @@ if (!empty($_POST["gameid"])) {
     <title>board</title>
     <link rel="stylesheet" type="text/css" href="styles/boardStyles.css">
 </head>
+<script>
+    window.onbeforeunload = function(e) {
+        return 'DONT DO IT';
+    };
+</script>
 <body>
 <div align="center">
     <table id="grid">
