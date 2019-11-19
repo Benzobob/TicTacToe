@@ -1,6 +1,8 @@
 <?php
+session_start();
 include_once 'WebServiceClient.php';
 $pid = $_SESSION['id'];
+$gid = $_SESSION['gameid'];
 $result = $client->getBoard(array("gid" => $gid));
 $results = explode("\n", $result->return);
 
@@ -9,10 +11,11 @@ foreach ($results as $value) {
     if($pid===(int)$array2[0]){
         $x = $array2[1];
         $y = $array2[2];
+        echo "<script> document.getElementById" . "(" .$x . "-" . $y . ") = 'hi';</script>";
         //Print an x at these co-ordinates
     }
     else{
-        //Print an o at these coordinates
+        echo "nope";
     }
 }
 //Echo table headers
