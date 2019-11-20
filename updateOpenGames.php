@@ -20,7 +20,7 @@ EOD;
 //Cycle through results, echoing a row for each open game
 foreach ($results as $singleOpenGame) {
     $doubleExplosionMayham = explode(",", $singleOpenGame);
-    echo "<tr><td>" . $doubleExplosionMayham[0] . "</td><td>" . $doubleExplosionMayham[1] . "</td><td><form method='post' action='gameboard.php'><input type='hidden' name='gameid' value='" . $doubleExplosionMayham[0] . "'><input type='submit'value='JOIN'></form>";
+    echo "<tr><td>" . $doubleExplosionMayham[0] . "</td><td>" . $doubleExplosionMayham[1] . "</td><td><form method='post' action='joinGame.php'><input type='hidden' name='gameid' value='" . $doubleExplosionMayham[0] . "'><input type='submit'value='JOIN'></form>";
 }
 
 ?>

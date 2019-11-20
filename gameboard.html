@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>board</title>
+</head>
+<body>
+<div align="center" id="board">
+</div>
+<link rel="stylesheet" type="text/css" href="styles/boardStyles.css">
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script>
+    var x = 0;
+    var y = 0;
+    var gid;
+    var uid;
+
+
+    $(document).ready(function() {
+        $.post("getBoard.php",
+            {},
+            function (data, status) {
+                let src;
+                $("#board").append(data);
+
+
+
+                /*
+                var x = 0;
+                for(x = 0; x < 9 ; x++){
+                    if(document.getElementById(x.toString()).innerHTML === "1"){
+
+
+                        var img = document.createElement("img");
+                        img.src = "imgs/x.png";
+                        src = document.getElementById(x.toString());
+
+                        src.appendChild(img);
+                    }
+                    if(document.getElementById(x.toString()).innerHTML === "2"){
+                        var img = document.createElement("img");
+                        img.src = "imgs/o.png";
+                        src = document.getElementById(x.toString());
+                        src.appendChild(img);
+                    }
+                }
+                */
+
+            }
+        );
+        $(document).on('click', '#grid td', function() {
+            y = this.cellIndex;
+            x = this.parentNode.rowIndex;
+            var tdId = jQuery(this).attr("id");
+
+            $.ajax({
+                url: "checkSquare.php?x=" + x + "&y=" + y, success: function (result) {
+
+                    if (parseInt(result) === 0) {
+                        $.ajax({
+                            url: "takeSquare.php?x=" + x + "&y=" + y,
+                            success: function (result) {
+                                var img = document.createElement("img");
+                                img.src = "imgs/x.png";
+
+                                src = document.getElementById(tdId);
+                                document.getElementById(tdId).innerHTML = "";
+                                src.appendChild(img);
+
+                                if (parseInt(result) === 1) {
+                                    $.ajax({
+                                        url: "checkWin.php?x=" + x + "&y=" + y,
+                                        success: function (result) {
+                                            switch (result) {
+                                                case "0":
+                                                    //continue
+                                                    location.reload();
+                                                    break;
+                                                case "1":
+                                                    //player 1 won
+                                                    break;
+                                                case "2":
+                                                    //player 2 won
+                                                    break;
+                                                case "3":
+                                                    //draw
+                                                    break;
+                                                case "ERROR-RETRIEVE":
+                                                    window.alert("Issue collecting game details.");
+                                                    break;
+                                                case "ERROR-NOGAME":
+                                                    window.alert("No game can be found.");
+                                                    break;
+                                                case "ERROR-DB":
+                                                    window.alert("Error DB");
+                                                    break;
+
+                                            }
+                                        }});
+
+
+
+                                }
+                                else if (parseInt(result) === 0) window.alert("Error");
+                                else window.alert(result);
+                            }
+                        });
+                    }
+                    else if (parseInt(result) === 1) window.alert("This square is already taken. Please pick another.");
+                    else window.alert(result);
+                }
+            });
+        });
+    });
+
+  /*      $(document).on('change', '#countryList', function(){
+            val = $("#countryList").val();
+
+            $("#states").html("");
+            $("#cities").html("");
+            $("#results").html("<p>Please select a state, then a city to see results.</p>");
+
+            $.post(
+                "get_states.php",
+                {
+                    cID: val
+                },
+                function(data, status) {
+                    $("#states").append(data);
+                }
+            );
+        });
+
+
+
+        //This function checks if one of the grid squares was clicked and sets the X and Y co-ordinates
+    $('#grid').click(function () {
+
+        window.alert("result");
+            y = this.cellIndex;
+            x = this.parentNode.rowIndex;
+            var flag = false;
+
+            /* This function checks if it is the first turn or if it is the logged in users go.
+             * Flag is set to true if it is your turn.
+            $.ajax({
+                url: "getBoard.php?gid=" + gid, success: function (result) {
+                    if (result === "ERROR-NOMOVES") flag = true;
+                    else if (result === "ERROR-DB") flag = false;
+                    else {
+                        var array1 = result.split("\n");
+                        var last_element = array1[array1.length - 1];
+                        last_element = last_element(",");
+                        flag = !(uid === parseInt(last_element[0]));
+                    }
+
+                    //This function checks if the square clicked is available and if it is it takes that square.
+                    if (flag) {
+                        $.ajax({
+                            url: "checkSquare.php?gid=" + gid + "&x=" + x + "&y=" + y, success: function (result) {
+                                if (parseInt(result) === 0) {
+                                    $.ajax({
+                                        url: "takeSquare.php?pid=" + uid + "&gid=" + gid + "&x=" + x + "&y=" + y,
+                                        success: function (result) {
+                                            if (parseInt(result) === 1) {
+                                                var img = document.createElement("img");
+                                                img.src = "imgs/x.png";
+                                                var src = document.getElementById("" + x + "-" + y);
+                                                src.appendChild(img);
+                                            } else if (parseInt(result) === 0) window.alert("Error");
+                                            else window.alert(result);
+                                        }
+                                    });
+                                } else if (parseInt(result) === 1) window.alert("This square is already taken. Please pick another.");
+                                else window.alert(result);
+                            }
+                        });
+                    }
+                }
+            });
+        });*/
+
+</script>
+</body>
+</html>
