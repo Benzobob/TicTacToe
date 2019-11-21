@@ -5,6 +5,7 @@ session_start();
 <html>
 <head>
     <title>Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="styles/toolbarStyles.css">
     <link rel="stylesheet" type="text/css" href="styles/tableStyle.css">
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script>
@@ -29,6 +30,14 @@ session_start();
     </script>
 </head>
 <body>
+<div class="topnav">
+    <?php
+    echo "<a href='dashboard.php?id=" . $_SESSION['id'] . "&uname=" . $_SESSION['uname'] . "'>Dashboard</a>";
+    echo "<a href='scores.php?id=" . $_SESSION['id'] . "&uname=" . $_SESSION['uname'] . "'>Statistics</a>";
+    echo "<a class='active' href='logout.php'> Log out </a>";
+    ?>
+</div>
+
 <div align="center">
     <h1>Leader Board for all Users</h1>
     <div id="dynamic_leaderboard">

@@ -129,20 +129,26 @@ session_start();
                 });
             }
                 else{
-                    var auto_refresh = setInterval(
+                    var auto_refresh2 = setInterval(
                         function () {
                             $.ajax({
                                 url: 'getGameState.php',
                                 success: function (result) {
                                     document.getElementById("turns").innerHTML = "Waiting for opponent to join.";
                                     $("#turns").fadeIn(1000).fadeOut(1000);
+
                                     if (parseInt(result) === 0) {
-                                        window.alert("Opponent has joined.");
+                                        clearInterval(auto_refresh2);
+                                        document.getElementById("turns").innerHTML = "Player has joined";
+                                        $("#turns").fadeIn(3000);
+                                        setTimeout(function(){
+                                            document.getElementById("turns").innerHTML = '';
+                                        }, 4000);
                                         location.reload();
                                     }
                                 }
                             })
-                        }, 250);
+                        }, 50);
                 }
             }
 
@@ -154,7 +160,6 @@ session_start();
         $.ajax({
             url: "setGameState.php?state=" + i,
             success: function (result) {
-                //
             }
         });
     }
@@ -208,7 +213,7 @@ session_start();
                             data: data;
                             $('#board').html(data);
                         }}})
-        },250);
+        },150);
 
 
 </script>

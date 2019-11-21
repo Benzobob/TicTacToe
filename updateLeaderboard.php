@@ -27,11 +27,12 @@ foreach ($userArray as $name){
 foreach ($array1 as $value){
     $array2 = explode("," , $value);
 
+
     //Deal with games that had a draw.
     if((int)$array2[3] === 3) {
         //find both array2[1] and array2[2] in $users and add 1 to draw for both
         //for loop to go through $users
-        for ($row = 0; $row < count($users[0])+1; $row++) {
+        for ($row = 0; $row < count($users); $row++) {
             if ($array2[1] === $users[$row][0]) {
                 $users[$row][3]++;  //Add 1 to draw for $array2[1]
             }
@@ -49,10 +50,11 @@ foreach ($array1 as $value){
         //Add 1 to Win for array2[2]  (p2)
 
         //for loop to go through $users
-        for ($row = 0; $row < count($users[0])+1; $row++) {
+        for ($row = 0; $row < count($users); $row++) {
             if ($array2[1] === $users[$row][0]) {
                 $users[$row][2]++;  //Add 1 to lose for $array2[1]
             }
+
 
             if ($array2[2] === $users[$row][0]) {
                 $users[$row][1]++;  //Add 1 to win for $array2[2]
@@ -67,7 +69,7 @@ foreach ($array1 as $value){
         //Add 1 to Lose for array2[2]  (p2)
 
         //for loop to go through $users
-        for ($row = 0; $row < count($users[0])+1; $row++) {
+        for ($row = 0; $row < count($users); $row++) {
             if ($array2[1] === $users[$row][0]) {
                 $users[$row][1]++;  //Add 1 to win for $array2[1]
             }
@@ -90,7 +92,7 @@ echo <<<'EOD'
         </tr>
       
 EOD;
-for ($row = 0; $row < sizeof($array2); $row++) {
+for ($row = 0; $row < sizeof($users); $row++) {
     echo "<tr>";
     for ($col = 0; $col < 4; $col++) {
         echo "<td>" . $users[$row][$col] . "</td>";

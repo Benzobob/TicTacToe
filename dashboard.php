@@ -9,6 +9,7 @@ unset($_SESSION['moves']);
 <head>
     <title>Dashboard</title>
     <link rel="stylesheet" type="text/css" href="styles/tableStyle.css">
+    <link rel="stylesheet" type="text/css" href="styles/toolbarStyles.css">
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script>
         //setInterval is a JavaScript method that calls a function or evaluates an expression at specified intervals.
@@ -32,16 +33,23 @@ unset($_SESSION['moves']);
     </script>
 </head>
 <body>
+
+<div class="topnav">
+    <?php
+    echo "<a href='leaderboard.php?id=" . $_SESSION['id'] . "&uname=" . $_SESSION['uname'] . "'>Leaderboard</a>";
+    echo "<a href='scores.php?id=" . $_SESSION['id'] . "&uname=" . $_SESSION['uname'] . "'>Statistics</a>";
+    echo "<a class='active' href='logout.php'> Log out </a>";
+    ?>
+</div>
+
+
 <div align="center">
     <h1>Dashboard</h1>
     <?php
-    echo "<button><a href='scores.php?id=" . $_SESSION['id'] . '&uname=' . $_SESSION['uname'] . "'> Scores</a></button><td>";
-    echo "<button><a href='leaderboard.php?id=" . $_SESSION['id'] . '&uname=' . $_SESSION['uname'] . "'> Leader Board</a></button>";
-    echo "<button><a href='newGame.php'> New Game</a></button>";
+    echo "<a href='newGame.php'> <img src=\"imgs/play-btn.png\" width=\"200\" height=\"100\"></a>";
     ?>
 </div>
 <div align="center">
-    <h3>Table of available games</h3>
     <div id="dynamic_lobby">
 <!--        populated with table of open games via ajax and gameLobbyAjax.php, php file declared line 18-->
     </div>
