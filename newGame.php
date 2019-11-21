@@ -27,7 +27,7 @@ if(!(isset($_SESSION['gameid']))) {
         default:
             echo "<div class='alert alert-info'>";
             echo 'Successfully created game';
-            header("Location: gameboard.html");
+            header("Location: gameboard.php");
             $_SESSION['gameid'] = $gameid;
     }
 }

@@ -19,7 +19,7 @@ if (!empty($_POST["gameid"])) {
             break;
         case "1":
             echo "Joined. gameid from joinGame: " . $gameid;
-            header("Location: gameboard.html");
+            header("Location: gameboard.php");
             break;
         default:
             echo "Unable to join";

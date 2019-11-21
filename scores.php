@@ -29,8 +29,6 @@ session_start();
     </script>
 </head>
 <body>
-<div id="test">test
-</div>
 <div align="center">
     <h1>Scores for <?php echo $_SESSION['uname']?></h1>
     <div id="dynamic_scores_table">
