@@ -19,4 +19,5 @@ if(!($results[0] === "ERROR-NOMOVES")) {
 elseif($results[0] === "ERROR-NOMOVES"){
     $flag = 3;
 }
+
 echo $flag;

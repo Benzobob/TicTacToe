@@ -19,8 +19,9 @@ session_start();
 <div align="center" id="Title">
     <h2>Game Board</h2>
     <h4 id="turns"></h4>
-
+    <p id="countdown"></p>
 </div>
+<div id="go" align="center"></div>
 
 <br>
 <div align="center" id="board">
@@ -34,128 +35,185 @@ session_start();
 <script>
     var x = 0;
     var y = 0;
-    var turn;
+    var timer2 = "1:00";
+    var interval;
+    var auto_refresh1;
 
+    $(document).ready(function() {
+        startGame();
+    });
 
+    function startGame(){
+        $.ajax({
+            url: "getGameState.php", success: function (result) {
+                if (parseInt(result) === -1) {
+                    interval = setInterval(getGameState, 1000);
+                }
+                else{
+                    play();
+                }
+            }
+        });
+    }
 
+    function takeSquare(tdId, x, y) {
+        $.ajax({
+            url: "takeSquare.php?x=" + x + "&y=" + y,
+            success: function (result) {
+                var img = document.createElement("img");
+                img.src = "imgs/x.png";
 
-    $(document).ready(function () {
-        //This first ajax function checks who's turn it is.
+                src = document.getElementById(tdId);
+                document.getElementById(tdId).innerHTML = "";
+                src.appendChild(img);
+
+                if (parseInt(result) === 1) {
+                    $.ajax({
+                        url: "checkWin.php?x=" + x + "&y=" + y,
+                        success: function (result) {
+                            switch (result) {
+                                case "0":
+                                    //continue game
+                                    play();
+                                    break;
+                                case "1":
+                                    setGameState(1);
+                                    //player 1 won
+                                    break;
+                                case "2":
+                                    setGameState(2);
+                                    //player 2 won
+                                    break;
+                                case "3":
+                                    setGameState(3);
+                                    //draw
+                                    break;
+                                case "ERROR-RETRIEVE":
+                                    window.alert("Issue collecting game details.");
+                                    break;
+                                case "ERROR-NOGAME":
+                                    window.alert("No game can be found.");
+                                    break;
+                                case "ERROR-DB":
+                                    window.alert("Error DB");
+                                    break;
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    function checkSquare(tdId, x, y) {
+        $.ajax({
+            url: "checkSquare.php?x=" + x + "&y=" + y, success: function (result) {
+                if (parseInt(result) === 0) {
+                    takeSquare(tdId, x, y);
+                }
+                else{
+                    document.getElementById("turns").innerHTML = "This tile is taken. Try another."
+                    $("#turns").css('color', 'red');
+                }
+
+            }
+        });
+    }
+
+    function play(){
         $.ajax({
             url: "getGameState.php", success: function (result) {
                 if (parseInt(result) === 0) {
-                $.ajax({
-                    url: "checkTurn.php", success: function (result) {
-                        if (parseInt(result) === 1 || parseInt(result) === 3) {
-                            document.getElementById("turns").innerHTML = "Click tile to take your turn.";
-                            $(document).on('click', '#grid td', function () {
-                                y = this.cellIndex;
-                                x = this.parentNode.rowIndex;
-                                var tdId = jQuery(this).attr("id");
-
-                                $.ajax({
-                                    url: "checkSquare.php?x=" + x + "&y=" + y, success: function (result) {
-
-                                        if (parseInt(result) === 0) {
-                                            $.ajax({
-                                                url: "takeSquare.php?x=" + x + "&y=" + y,
-                                                success: function (result) {
-                                                    var img = document.createElement("img");
-                                                    img.src = "imgs/x.png";
-
-                                                    src = document.getElementById(tdId);
-                                                    document.getElementById(tdId).innerHTML = "";
-                                                    src.appendChild(img);
-
-                                                    if (parseInt(result) === 1) {
-                                                        $.ajax({
-                                                            url: "checkWin.php?x=" + x + "&y=" + y,
-                                                            success: function (result) {
-                                                                switch (result) {
-                                                                    case "0":
-                                                                        //continue check turn
-                                                                        location.reload();
-                                                                        break;
-                                                                    case "1":
-                                                                        setGameState(1);
-                                                                        //player 1 won
-                                                                        break;
-                                                                    case "2":
-                                                                        setGameState(2);
-                                                                        //player 2 won
-                                                                        break;
-                                                                    case "3":
-                                                                        setGameState(3);
-                                                                        //draw
-                                                                        break;
-                                                                    case "ERROR-RETRIEVE":
-                                                                        window.alert("Issue collecting game details.");
-                                                                        break;
-                                                                    case "ERROR-NOGAME":
-                                                                        window.alert("No game can be found.");
-                                                                        break;
-                                                                    case "ERROR-DB":
-                                                                        window.alert("Error DB");
-                                                                        break;
-                                                                }
-                                                            }
-                                                        });
-                                                    } else if (parseInt(result) === 0) window.alert("Error");
-                                                    else window.alert(result);
-                                                }
-                                            });
-                                        } else if (parseInt(result) === 1) window.alert("This square is already taken. Please pick another.");
-                                        else window.alert(result);
-                                    }
+                    $.ajax({
+                        url: "checkTurn.php", success: function (result) {
+                            if (parseInt(result) === 1 || parseInt(result) === 3) {
+                                $("#board").css("pointer-events","auto");
+                                document.getElementById("turns").innerHTML = "Click tile to take your turn.";
+                                $("#turns").css('color', 'green');
+                                $(document).on('click', '#grid td', function () {
+                                    y = this.cellIndex;
+                                    x = this.parentNode.rowIndex;
+                                    var tdId = jQuery(this).attr("id");
+                                    checkSquare(tdId,x,y);
                                 });
-                            });
-                        } else {
-                            var auto_refresh = setInterval(
-                                function () {
-                                    $.ajax({
-                                        url: 'checkTurn.php',
-                                        success: function (result) {
-                                            document.getElementById("turns").innerHTML = "Your opponent is taking their turn.";
-                                            $("#turns").fadeIn(1000).fadeOut(1000);
-                                            if (parseInt(result) !== 0) {
-                                                location.reload();
-                                            }
-                                        }
-                                    })
-                                }, 250);
+                            }
+                            else waitForTurn();
                         }
-
-                    }
-                });
-            }
-                else{
-                    var auto_refresh2 = setInterval(
-                        function () {
-                            $.ajax({
-                                url: 'getGameState.php',
-                                success: function (result) {
-                                    document.getElementById("turns").innerHTML = "Waiting for opponent to join.";
-                                    $("#turns").fadeIn(1000).fadeOut(1000);
-
-                                    if (parseInt(result) === 0) {
-                                        clearInterval(auto_refresh2);
-                                        document.getElementById("turns").innerHTML = "Player has joined";
-                                        $("#turns").fadeIn(3000);
-                                        setTimeout(function(){
-                                            document.getElementById("turns").innerHTML = '';
-                                        }, 4000);
-                                        location.reload();
-                                    }
-                                }
-                            })
-                        }, 50);
+                    });
                 }
             }
-
         });
-    });
+    }
 
 
+    function waitForTurn(){
+        $("#board").css("pointer-events","none");
+        auto_refresh1 = setInterval(
+            function () {
+                $.ajax({
+                    url: 'checkTurn.php',
+                    success: function (result) {
+                        document.getElementById("turns").innerHTML = "Your opponent is taking their turn.";
+                        $("#turns").css('color', 'blue');
+                        $("#turns").fadeIn(1000).fadeOut(1000);
+                        if (parseInt(result) !== 0) {
+                            clearInterval(auto_refresh1);
+                            play();
+                        }
+                    }
+                })
+            }, 50);
+    }
+
+
+    function getGameState() {
+        $.ajax({
+            url: 'getGameState.php', success: function (result) {
+                document.getElementById("turns").innerHTML = "Waiting for opponent to join.";
+                $("#turns").fadeIn(1000).fadeOut(1000);
+
+                var timer = timer2.split(':');
+                        var minutes = parseInt(timer[0], 10);
+                        var seconds = parseInt(timer[1], 10);
+
+                        --seconds;
+                        minutes = (seconds < 0) ? --minutes : minutes;
+                        seconds = (seconds < 0) ? 59 : seconds;
+                        seconds = (seconds < 10) ? '0' + seconds : seconds;
+
+                        $('#countdown').html(minutes + ':' + seconds);
+                        if (minutes < 0) clearInterval(interval);
+
+                        //check if both minutes and seconds are 0
+                        if ((seconds <= 0) && (minutes <= 0)) {
+                            clearInterval(interval);
+                            $.ajax({
+                                url: "deleteGame.php", success: function (result) {
+                                    if (result === "1") {
+                                        window.alert("No one has joined the game :(");
+                                        window.location.href = "dashboard.php?id=<?php echo $_SESSION['id'];?>&uname=<?php echo $_SESSION['uname']?>";
+                                    } else {
+                                        window.alert("Error, cannot delete game.");
+                                        window.location.href = "dashboard.php?id=<?php echo $_SESSION['id'];?>&uname=<?php echo $_SESSION['uname']?>";
+                                    }
+                                }
+                            });
+                        }
+                        timer2 = '0' + minutes + ':' + seconds;
+
+                        if (parseInt(result) === 0) {
+                            document.getElementById('countdown').innerHTML = "";
+                            document.getElementById('turns').innerHTML = "";
+                            location.reload();
+                        }
+                    }
+                });
+    }
+
+    /*
+     * This function is used to set the game state.
+     * @param is the current game state based on the last move taken.
+     */
     function setGameState(i){
         $.ajax({
             url: "setGameState.php?state=" + i,
@@ -164,8 +222,12 @@ session_start();
         });
     }
 
-
-    var auto_refresh1 = setInterval(
+    /*
+     * This function is used to constantly check if the game has finished.
+     * The game result will be shown on the screen as an alert.
+     * The user will be re-directed to the dashboard.
+     */
+    var auto_refresh2 = setInterval(
         function()
         {
             $.ajax({
@@ -174,29 +236,30 @@ session_start();
                     function (data) {
                         switch (parseInt(data)) {
                             case 1:
-                                clearInterval(auto_refresh);
-                                clearInterval(auto_refresh1);
+                                clearInterval(interval);clearInterval(auto_refresh1);clearInterval(auto_refresh2);
                                 alert("Game over!! - Player 1 wins!!");
                                 window.location.href = "dashboard.php?id=<?php echo $_SESSION['id'];?>&uname=<?php echo $_SESSION['uname']?>";
                                 break;
                             case 2:
-                                clearInterval(auto_refresh);
-                                clearInterval(auto_refresh1);
+                                clearInterval(interval);clearInterval(auto_refresh1);clearInterval(auto_refresh2);
                                 alert("Game over!! - Player 2 wins!!");
                                 window.location.href = "dashboard.php?id=<?php echo $_SESSION['id'];?>&uname=<?php echo $_SESSION['uname']?>";
                                 break;
                             case 3:
-                                clearInterval(auto_refresh);
-                                clearInterval(auto_refresh1);
+                                clearInterval(interval);clearInterval(auto_refresh1);clearInterval(auto_refresh2);
                                 alert("Seriously?.. A draw?... Y'all are both smart");
                                 window.location.href = "dashboard.php?id=<?php echo $_SESSION['id'];?>&uname=<?php echo $_SESSION['uname']?>";
                                 break;
                         }
+                }
+            })
+        },300);
 
-                        }})
-        },100);
-
-    //Method to constantly update the board
+    /*
+     * This function is used to constantly refresh the game board.
+     * It caches the data of the board and checks if any changes happen.
+     * If a change takes place it then refreshes the board.
+     */
     var cacheData;
     var data = $('#board').html();
     var auto_refresh = setInterval(
@@ -213,9 +276,13 @@ session_start();
                             data: data;
                             $('#board').html(data);
                         }}})
-        },150);
+        },500);
+
+
+
 
 
 </script>
+<div id="result"></div>
 </body>
 </html>

@@ -23,7 +23,10 @@ foreach ($array1 as $value) {
     else if($result == 2 && $array2[1]=== $_SESSION['uname']){
         $win++;
     }
-    else{
+    else if($result == 1 && $array1[1] !== $_SESSION['uname']){
+        $lose++;
+    }
+    else if($result == 2 && $array1[1] !== $_SESSION['uname']){
         $lose++;
     }
 }
