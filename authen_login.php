@@ -12,19 +12,19 @@ $result = $client->login(array("username" => $username, "password" => $password)
  * Also assigns the session variable to the user_id of the logged in user. */
 if($result->return == 0){
     echo "<div class='alert alert-info'>";
-    echo 'Incorrect Username or Password. <meta http-equiv="refresh" content="2; url=login.php">';
+    echo 'Incorrect Username or Password. <meta http-equiv="refresh" content="1; url=login.php">';
     echo "</div>";
 }
 else if($result->return == -1){
     echo "<div class='alert alert-info'>";
-    echo 'Login Error. <meta http-equiv="refresh" content="2; url=login.php">';
+    echo 'Login Error. <meta http-equiv="refresh" content="1; url=login.php">';
     echo "</div>";
 }
 else if($result->return > 0){
     $_SESSION['id'] = $result->return;
     $_SESSION['uname'] = $username;
     echo "<div class='alert alert-info'>";
-    echo 'Successfully logged in. <meta http-equiv="refresh" content="2; url=dashboard.php?id=' . $_SESSION['id'] . '&uname=' . $_SESSION['uname'] . '">';
+    echo 'Successfully logged in. <meta http-equiv="refresh" content="1; url=dashboard.php?id=' . $_SESSION['id'] . '&uname=' . $_SESSION['uname'] . '">';
     echo "</div>";
 }
 ?>

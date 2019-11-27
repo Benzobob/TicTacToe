@@ -9,8 +9,10 @@ session_start();
     <link rel="stylesheet" type="text/css" href="styles/tableStyle.css">
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script>
-        //setInterval is a JavaScript method that calls a function or evaluates an expression at specified intervals.
-        //We use an anonymous function to define the function called which will check if WebService::showOpenGames has new data.
+
+        /*
+         * This function is constantly updating the Leader board table.
+         */
         var cacheData;
         var liveData = $('#dynamic_leaderboard').html();
         var auto_refresh = setInterval(
@@ -29,7 +31,7 @@ session_start();
             },250);
     </script>
 </head>
-<body>
+<body style="background-color: #cddeff">
 <div class="topnav">
     <?php
     echo "<a href='dashboard.php?id=" . $_SESSION['id'] . "&uname=" . $_SESSION['uname'] . "'>Dashboard</a>";
@@ -41,9 +43,8 @@ session_start();
 <div align="center">
     <h1>Leader Board for all Users</h1>
     <div id="dynamic_leaderboard">
-        <!--        populated with table of leaderboard details via ajax and leaderboardAjax.php -->
+        <!-- populated with table retrieved from "updateLeaderboard.php"-->
     </div>
-
 </div>
 </body>
 </html>

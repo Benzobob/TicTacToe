@@ -17,8 +17,8 @@ else {
     //Echo table headers
     echo <<<'EOD'
 <h3>Table of available games</h3>
-<table style="width:25%">
-    <tr>
+<table style="width:25%; border: solid 4px darkcyan; background-color: white">
+    <tr style="border: 4px solid darkcyan">
         <th>Game id</th>
         <th>Opponent</th>
         <th>Join Game</th>
@@ -30,7 +30,7 @@ EOD;
         $array1 = explode(",",$singleOpenGame);
         if($array1[1] !== $_SESSION['uname']) {
             $doubleExplosionMayham = explode(",", $singleOpenGame);
-            echo "<tr><td>" . $doubleExplosionMayham[0] . "</td><td>" . $doubleExplosionMayham[1] . "</td><td><form method='post' action='joinGame.php'><input type='hidden' name='gameid' value='" . $doubleExplosionMayham[0] . "'><input type=\"image\" src=\"imgs/join.png\" width=\"50\" height=\"50\"></form>";
+            echo "<tr style=\"border: 2px solid darkcyan\"><td>" . $doubleExplosionMayham[0] . "</td><td>" . $doubleExplosionMayham[1] . "</td><td><form method='post' action='joinGame.php'><input type='hidden' name='gameid' value='" . $doubleExplosionMayham[0] . "'><input type=\"image\" src=\"imgs/join.png\" width=\"50\" height=\"50\"></form>";
         }
     }
 }

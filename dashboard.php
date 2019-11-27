@@ -1,5 +1,4 @@
 <?php session_start();
-//needed to populate table of open games. Will likely need to be moved into thread.
 include_once 'WebServiceClient.php';
 unset($_SESSION['gameid']);
 unset($_SESSION['moves']);
@@ -12,8 +11,10 @@ unset($_SESSION['moves']);
     <link rel="stylesheet" type="text/css" href="styles/toolbarStyles.css">
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script>
-        //setInterval is a JavaScript method that calls a function or evaluates an expression at specified intervals.
-        //We use an anonymous function to define the function called which will check if WebService::showOpenGames has new data.
+
+        /*
+         * This function is constantly updating the table of open games.
+         */
         var cacheData;
         var liveData = $('#dynamic_lobby').html();
         var auto_refresh = setInterval(
@@ -32,7 +33,7 @@ unset($_SESSION['moves']);
             },250);
     </script>
 </head>
-<body>
+<body style="background-color: #cddeff">
 
 <div class="topnav">
     <?php
@@ -42,16 +43,16 @@ unset($_SESSION['moves']);
     ?>
 </div>
 
-
 <div align="center">
     <h1>Dashboard</h1>
     <?php
     echo "<a href='newGame.php'> <img src=\"imgs/play-btn.png\" width=\"200\" height=\"100\"></a>";
     ?>
 </div>
+
 <div align="center">
     <div id="dynamic_lobby">
-<!--        populated with table of open games via ajax and gameLobbyAjax.php, php file declared line 18-->
+<!-- populated with table of open games from "updateOpenGames.php"-->
     </div>
 </div>
 </body>

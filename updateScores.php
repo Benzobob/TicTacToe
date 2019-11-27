@@ -31,13 +31,13 @@ foreach ($array1 as $value) {
     }
 }
 echo <<< 'EOD'
-    <table style="width:50%">
-        <tr>
+    <table style="width:50%; border: solid 4px darkcyan; background-color: white">
+        <tr style="border: solid 4px darkcyan;">
             <th>Win</th>
             <th>Lose</th>
             <th>Draw</th>
         </tr>
-        <tr>
+        <tr style="border: solid 4px darkcyan;">
 EOD;
             echo "<td>" . $win  . "</td>";
             echo "<td>" . $lose . "</td>";

@@ -9,8 +9,9 @@ session_start();
     <link rel="stylesheet" type="text/css" href="styles/toolbarStyles.css">
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script>
-        //setInterval is a JavaScript method that calls a function or evaluates an expression at specified intervals.
-        //We use an anonymous function to define the function called which will check if WebService::showOpenGames has new data.
+        /*
+         * This function is constantly updating the user scores table.
+         */
         var cacheData;
         var liveData = $('#dynamic_scores_table').html();
         var auto_refresh = setInterval(
@@ -29,7 +30,7 @@ session_start();
             },250);
     </script>
 </head>
-<body>
+<body style="background-color: #cddeff">
 
 <div class="topnav">
     <?php
@@ -42,7 +43,7 @@ session_start();
 <div align="center">
     <h1>Scores for <?php echo $_SESSION['uname']?></h1>
     <div id="dynamic_scores_table">
-<!--        -->
+        <!-- populated with table containing the users statistics retrieved from "updateScores.php"-->
     </div>
 </div>
 </body>

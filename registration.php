@@ -2,41 +2,44 @@
 <html>
 <head>
     <title>Registration</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="styles/formStyles.css">
 </head>
+<style>
+    body {
+        margin-right: 60%;
+        background-color: rgb(52, 160, 156);
+        background-image: url("imgs/XO.jpg");
+        background-repeat: no-repeat;
+        background-position: right top;
+        background-size: 46%;
+    }
+</style>
 
 <body id="body_reg">
-<div align="center">
-    <h1>Registration Page</h1>
-    <form id="reg-form" method="post" action="registerUser.php" >
-        <table border="0.8" >
-            <tr>
-                <td><label for="name"><b>First name</b></label></td>
-                <td><input type="text" placeholder="Name" name="name" required></td>
-            </tr>
-            <tr>
-                <td><label for="surname"><b>Surname</b></label></td>
-                <td><input type="text" placeholder="Surname" name="surname" required></td>
-            </tr>
-            <tr>
-                <td><label for="username"><b>Username</b></label></td>
-                <td><input type="text" placeholder="username" name="username" required></td>
-            </tr>
-            <tr>
-                <td><label for="password"><b>Password</b></label></td>
-                <td><input type="password" placeholder="Password" name="password" required></td>
-            </tr>
-            <tr>
-                <td><label for="psw1"><b>Re-type Password</b></label></td>
-                <td><input type="password" placeholder="Re-type Password" name="psw-repeat" required></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><button type="submit" class="registerbtn">Register</button></td>
-            </tr>
-        </table>
-    </form>
-</div>
+<form id="reg-form" method="post" action="registerUser.php" >
+    <div class="head" align="center">
+        <h2>Register</h2>
+    </div>
+    <div class="container">
+        <label for="name"><b>Name</b></label>
+        <input type="text" placeholder="Enter Name" name="name" required>
+
+        <label for="surname"><b>Password</b></label>
+        <input type="text" placeholder="Enter Surname" name="surname" required>
+
+        <label for="username"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="username" required>
+
+        <label for="password"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="password" required>
+
+        <label for="psw1"><b>Re-type Password</b></label>
+        <input type="password" placeholder="Re-type Password" name="psw-repeat" required>
+
+        <button type="submit" class="registerbtn">Register</button>
+    </div>
+
+</form>
 
 <div align="center">
     <p>Already have an account? <a href="login.php">Login Here</a>.</p>

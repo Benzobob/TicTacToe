@@ -1,7 +1,8 @@
 <?php
 session_start();
-include_once 'WebServiceClient.php';
 
+//Call deleteGame WS method and echo the result.
+include_once 'WebServiceClient.php';
 $gid = $_SESSION['gameid'];
 $uid = $_SESSION['id'];
 $result = $client->deleteGame(array("gid" => $gid, "uid" => $uid));

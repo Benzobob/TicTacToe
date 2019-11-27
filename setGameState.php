@@ -1,5 +1,7 @@
 <?php
 session_start();
+
+//Call setGameState WS method and echo the result.
 include_once 'WebServiceClient.php';
 
 $gid = $_SESSION['gameid'];

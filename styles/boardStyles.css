@@ -1,19 +1,9 @@
-td {
-    width: 120px;
-    height: 120px;
-}
-
 .v {
     border-left: 4px solid darkslategray;
     border-right: 4px solid darkslategray;
+    width: 100px;
 }
 .h {
     border-top: 4px solid palevioletred;
     border-bottom: 4px solid palevioletred;
-}
-
-.myclass{
-    display:inline-block;
-    width: 80px;
-    height: 40px;
 }

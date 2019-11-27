@@ -1,9 +1,12 @@
 <?php
 include_once 'WebServiceClient.php';
-//get soap response containing values entered in registration form
+
+/*
+ * Call 'register' WS method and echo the result.
+ * Re-direct user to login page if successful.
+ */
 $result = $client->register(array("username" => $_POST["username"], "password" => $_POST["password"], "name" => $_POST["name"], "surname" => $_POST["surname"]));
 
-//check if result is Error, if so print error. Otherwise print user id.
 switch ($result->return){
     case "ERROR-REPEAT":
         echo"There has been an error: ERROR-REPEAT";
@@ -18,7 +21,6 @@ switch ($result->return){
         echo "There has been an error: ERROR-DB";
         break;
     default:
-        //echo "id is " . $result->return;
         echo "<div class='alert alert-info'>";
         echo 'Successfully registered';
         echo "</div>";
